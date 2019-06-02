@@ -49,7 +49,9 @@
                 var save = {};
                 var sel = document.getElementById('templates');
                 sel.childNodes.forEach(x => {
-                    save[x.text]=x.value;
+                    if (x.text!="-") {
+                        save[x.text]=x.value;
+                    }
                 });
                 window.localStorage.setItem('templates', JSON.stringify(save));
             }
