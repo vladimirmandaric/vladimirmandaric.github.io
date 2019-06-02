@@ -1,0 +1,25 @@
+#template {
+    background-color: lightgoldenrodyellow;
+    padding: 3px;
+    width: 500px;
+    height: 300px;
+}
+
+#data {
+    background-color:linen;
+    padding: 3px;
+    width: 500px;
+    height: 300px;
+}
+
+
+#result {
+    background-color:mistyrose;
+    padding: 3px;
+    width: 500px;
+    height: 620px;
+}
+
+table, th, td {
+    border: 0px solid black;
+  }

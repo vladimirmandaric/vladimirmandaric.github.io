@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <link rel = "stylesheet" type = "text/css" href = "index.css" />
+        <script src="templaterCore.js" ></script>
+        <script>
+            function exec()
+            {
+                var template = document.getElementById("template").value;
+                var data = document.getElementById("data").value;
+                var display = process(data,template);
+                document.getElementById("result").value = display;
+            }
+
+            function loadTemplates() {
+                var data = window.localStorage.getItem('templates');
+                var templates = JSON.parse(data);
+                console.log(templates);
+                var sel = document.getElementById('templates');
+
+                var opt = document.createElement('option');
+                opt.appendChild(document.createTextNode("-"));
+                opt.value = "";                    
+                sel.appendChild(opt);
+
+                for (var key in templates) {
+                    var opt = document.createElement('option');
+                    opt.appendChild(document.createTextNode(key));
+                    opt.value = templates[key];                    
+                    sel.appendChild(opt); 
+                }
+            }
+
+            function changeTemplate() {
+                var sel = document.getElementById('templates');
+                document.getElementById("template").value = sel.value;
+            }
+
+            function newTemplate() {
+                var key = window.prompt("name of new template");
+                var sel = document.getElementById('templates');
+                var opt = document.createElement('option');
+                opt.appendChild(document.createTextNode(key));
+                opt.value = document.getElementById('template').value;                    
+                sel.appendChild(opt);
+                saveTemplates();
+            }
+
+            function saveTemplates() {
+                var save = {};
+                var sel = document.getElementById('templates');
+                sel.childNodes.forEach(x => {
+                    save[x.text]=x.value;
+                });
+                window.localStorage.setItem('templates', JSON.stringify(save));
+            }
+
+            function deleteTemplate() {
+                var sel = document.getElementById('templates');
+                sel.remove(sel.selectedIndex);
+                saveTemplates();
+            }
+
+        </script>
+    </head>
+
+    <body onload="loadTemplates()">
+        
+        
+        <table id="table1">
+            <tr>
+                <th>
+                    <div>template 
+                        <select id="templates" onchange="changeTemplate()"></select>
+                        <button id="save" onclick="newTemplate()">save</button>
+                        <button id="save" onclick="deleteTemplate()">delete</button>
+                    </div>
+                    <div ><textarea id="template"></textarea></div>
+                    <div>data</div>
+                    <div><textarea id="data"></textarea></div>
+                    </div>     
+                </th>
+                <th><button onclick="exec()">>></button></th>
+                <th>
+                    <div>result</div>
+                    <div ><textarea id="result"></textarea></div>
+                </th>
+                </tr>
+        </table>
+    </body>
+</html> 
